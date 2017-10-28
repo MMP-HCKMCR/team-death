@@ -17,7 +17,7 @@ function getDeceased () {
             if (err) console.log(err);
             else {
                 console.log(recordset);
-                return(recordset);
+                return recordset;
             }
         })
         return result;
@@ -30,11 +30,11 @@ function getDeceased () {
 module.exports = function() {
 
     router.get('/', function (req, res) {
-        res.send('Hello World!');
+        res.json({ value: 'Hello World!' });
     });
 
     router.get('/deceased', function (req, res) {
-        getDeceased();
+        res.json(getDeceased());
     });
 
     return router;
