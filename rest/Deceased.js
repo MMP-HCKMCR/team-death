@@ -89,3 +89,18 @@ exports.patchSetInterval = function(cb, deceasedId, interval) {
         cb(err);
     }
 }
+
+exports.deleteDeceased = function(cb, id) {
+    try {
+        sqlConn.getSqlRequest((err, req) => {
+            if (err) { cb(err); return; }
+
+            req.query(`DELETE FROM Deceased WHERE DeceasedId = ${id}`, (err, results) => {
+                if (err) { cb(err); return; }
+                cb(null, results);
+            })
+        })
+    } catch(err) {
+        cb(err);
+    }
+}
