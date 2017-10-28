@@ -1,17 +1,18 @@
 var sqlConn = require('./SqlConn')
 
 //function getDeceased () {
-exports.getDeceased = function() {
+exports.getDeceased = function(cb) {
     try {
-        var request = new sqlConn.getSqlRequest();
-        request.query("select * from deceased", function (err, recordset) {
-            if (err) console.log(err);
-            else {
-                console.log(recordset);
-                return(recordset);
-            }
-        })
-        return result;
+        sqlConn.getSqlRequest((err, req) => {
+            if (err) { cb(err); return; }
+
+            req.query("select * from deceased", (err, results) => {
+                if (err) { cb(err); return; }
+                cb(null, results);
+            });
+
+            //return result;
+        });
     } catch (err) {
         // ... error checks
     }

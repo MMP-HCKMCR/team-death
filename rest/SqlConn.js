@@ -2,11 +2,14 @@ const sql = require('mssql');
 const config = require('../config');
 
 
-exports.getSqlRequest = function() {
+exports.getSqlRequest = function(cb) {
     try {
-        var connection = new sql.ConnectionError(config.mssql);
-        var request = new sql.Request(connection)
-        return request;
+        sql.connect(config.mssql, (err) => {
+            cb(err, (err ? null : new sql.Request()));
+        });
+        //var connection = new sql.connect(config.mssql);
+        //var request = new sql.request(connection)
+        //return request;
     }
     catch (err) {
         console.log(err);

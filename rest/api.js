@@ -14,7 +14,9 @@ module.exports = function() {
     });
 
     router.get('/deceased', function (req, res) {
-        deceased.getDeceased();
+        deceased.getDeceased((e, r) => {
+            res.json({ error: e, set: r });
+        });
     });
 
     router.post('/deceased', function (req, res) {
