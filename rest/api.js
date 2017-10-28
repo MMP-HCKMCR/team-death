@@ -14,7 +14,7 @@ module.exports = function() {
     router.post('/login', function (req, res) {
         login.login((e,r) => {
             res.json( {error: e, set: r});
-        }, req);
+        }, req.body.email);
     });
     
     router.get('/', function (req, res) {
@@ -56,7 +56,7 @@ module.exports = function() {
             res.json ( {error: e, set: r});
         }, req.params.id);
     });
-
+    /*
     router.get('/recipients/:id', function (req, res) {
         recipients.getRecipient((e, r) => {
             res.json ( {error: e, set: r});
@@ -79,7 +79,7 @@ module.exports = function() {
         recipients.deleteRecipient((e,r) => {
             res.json ( {error: e, set: r});
         }, req.params.id);
-    });
+    });*/
 
     return router;
 }
