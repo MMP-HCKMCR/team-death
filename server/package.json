@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "*",
     "mssql": "*",
-    "pug": ""
+    "pug": "*",
+    "bootstrap": "*"
   }
 }
