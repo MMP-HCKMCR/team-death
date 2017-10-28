@@ -13,6 +13,10 @@ module.exports = {
     },
 
     clockwork: {
-        key: 'dce76bb6130ac3f7c01588489ed8f35b01eaa55a'
+        key: process.env.CLOCKWORK
+    },
+
+    sendgrid: {
+        key: process.env.SENDGRID
     }
 }
