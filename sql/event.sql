@@ -9,4 +9,5 @@ CREATE TABLE event (
 	SMS BIT DEFAULT 0,
 	email BIT DEFAULT 0,
 	twitter BIT DEFAULT 0,
+	messageSent BIT DEFAULT 0
 );
