@@ -35,13 +35,19 @@ module.exports = function() {
     router.patch('/deceased/:id/hasDied', function (req, res) {
         deceased.patchSetDeceased((e,r) => {
             res.json( {error: e, set: r});
-        }, id, req.body.deceasedDate);
+        }, req.params.id, req.body.deceasedDate);
     });
 
     router.patch('/deceased/:id/checkin', function (req, res) {
         deceased.patchSetCheckIn((e, r) => {
             res.json( {error: e, set: r});
-        }, id);
+        }, req.params.id);
+    });
+
+    router.patch('/deceased/:id/frequency', function (req, res) {
+        deceased.patchSetInterval((e, r) => {
+            res.json ( { error:e, set:r});
+        }, req.params.id, req.body.frequency);
     });
 
     return router;

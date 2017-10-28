@@ -1,4 +1,5 @@
 var sqlConn = require('./SqlConn')
+var sqlDate = require('./msDate')
 
 //function getDeceased () {
 exports.getDeceased = function(cb) {
@@ -44,39 +45,47 @@ exports.postDeceased = function(cb, firstName, lastName, email, phone) {
 
 exports.patchSetDeceased = function(cb, deceasedId, deathDate) {
     try {
-        var request = new sqlConn.getSqlRequest();
-        var queryString = `update deceased set Deceased = 1, DateOfDeath = deathDate, LastUpdated = '${getDate()}' where = deceasedId = ${deceasedId}`;
-        request.query(queryString, function (err, result) {
-            if (err) throw err;
+        var currDate = sqlDate.getDate();
+        sqlConn.getSqlRequest((err, sqlRequest) => {
+            if (err) {cb(err); return;}
+            sqlRequest.query(`update deceased set Deceased = 1, DateOfDeath = deathDate, LastUpdated = '${currDate}' where = deceasedId = ${deceasedId}`, (err, results) => {
+                if (err)  { cb(err); return; }
+                cb(null, results);
+            });
         });
     }
     catch (err) {
-        console.log(err);
+        cb(err);
     }
 }
 
 exports.patchSetCheckIn = function(cb, deceasedId) {
     try {
-        var request = new sqlConn.getSqlRequest();
-        var queryString = `update deceased set NotDeadYet = ${getDate()}, LastUpdated = '${getDate()}' where deceasedId = ${deceasedId}`;
-        request.query(queryString, function (err, result) {
-            if (err) throw err;
+        var currDate = sqlDate.getDate();
+        sqlConn.getSqlRequest((err, sqlRequest) => {
+            if (err) {cb(err); return;}
+            sqlRequest.query(`update deceased set NotDeadYet = '${currDate}', LastUpdated = '${currDate}' where deceasedId = ${deceasedId}`, (err, results) => {
+                if (err)  { cb(err); return; }
+                cb(null, results);
+            });
         });
     }
     catch (err) {
-        console.log(err);
+        cb(err);
     }
 }
 
 exports.patchSetInterval = function(cb, deceasedId, interval) {
     try {
-        var request = new sqlConn.getSqlRequest();
-        var queryString = `update deceased set NotDeadFrequencyId = ${interval} where deceased ID = ${deceasedId}`
-        request.query(queryString, function (err, result) {
-            if (err) throw err;
+        sqlConn.getSqlRequest((err, sqlRequest) => {
+            if (err) {cb(err); return;}
+            sqlRequest.query(`update deceased set NotDeadFrequencyId = ${interval} where deceased ID = ${deceasedId}`, (err, results) => {
+                if (err)  { cb(err); return; }
+                cb(null, results);
+            });
         });
     }
     catch (err) {
-        console.log(err);
+        cb(err);
     }
 }
