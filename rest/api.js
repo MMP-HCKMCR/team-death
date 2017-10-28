@@ -6,6 +6,7 @@ var login = require('./Login');
 var deceased = require('./Deceased');
 var recipients = require('./Recipient');
 var events = require('./Events');
+var messages = require('./Messages');
 
 // express router
 var router = express.Router();
@@ -114,6 +115,24 @@ module.exports = function() {
 
     router.get('/recipients/:id/events', function (req, res) {
         events.getEventsForRecipient((e,r) => {
+            res.json( { error: e, set: r});
+        }, req.params.id);
+    })
+
+    router.get('/recipients/:id/messages', function (req, res) {
+        messages.getMessagesForRecipient((e, r) => {
+            res.json( { error: e, set: r});
+        }, req.params.id);
+    })
+
+    router.post('/messages', function (req, res) {
+        messages.postMessage((e, r) => {
+            res.json( { error: e, set: r});
+        }, req.body.message);
+    });
+
+    router.delete('/messages/:id', function (req, res) {
+        messages.deleteMessage((e, r) => {
             res.json( { error: e, set: r});
         }, req.params.id);
     })
