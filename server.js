@@ -58,7 +58,7 @@ try {
     /////////////////////////////////////
     // setup page + action routes
     /////////////////////////////////////
-    //app.use('/', require('./routes/pages.js')());
+    app.use('/', require('./routes/pages.js')());
 
 
     /////////////////////////////////////
