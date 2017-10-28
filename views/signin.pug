@@ -1,0 +1,48 @@
+html
+	include partials/head.pug
+	script(src='scripts/signin.js')
+	include partials/navigation.pug
+
+
+	body
+		.container
+			.col-md-4
+				h2.text-center Sign in
+				hr
+				form(method='' action='').form-horizontal.signin-form
+					fieldset
+						.form-group
+							label.control-label(for="inputEmail") Email
+							br
+							input#inputEmail.form-control(type="text", placeholder="Email")
+						.form-group
+							label.control-label(for="inputPassword") Password
+							br
+							input#inputPassword.form-control(type="password", placeholder="Password")
+						.form-group
+							button.signin-submit.btn.btn-success(type="button") Sign In
+
+			.col-md-7.col-md-offset-1
+				h2.text-center Register
+				hr
+				form.form-horizontal.col-md-10.col-md-offset-1
+					fieldset
+						.form-group
+							label.control-label(for="inputEmail") Email
+							br
+							input#inputEmailReg.form-control(type="text", placeholder="Email")
+						.form-group
+							label.control-label(for="inputFirstName") First Name
+							br
+							input#inputFirstName.form-control(type="text", placeholder="First Name")
+						.form-group
+							label.control-label(for="inputLastName") Last Name
+							br
+							input#inputLastName.form-control(type="text", placeholder="Last Name")
+						.form-group
+							label.control-label(for="inputMobileNumber") Mobile Number
+							br
+							input#inputNumber.form-control(type="text", placeholder="Mobile Number")
+						.form-group
+							button.register-submit.btn.btn-success(type="button") Register
+						
