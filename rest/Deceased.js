@@ -1,5 +1,6 @@
 var sqlConn = require('./SqlConn')
 var sqlDate = require('./msDate')
+var login = require('./Login')
 
 //function getDeceased () {
 exports.getDeceased = function(cb) {
@@ -34,7 +35,7 @@ exports.postDeceased = function(cb, firstName, lastName, email, phone) {
             if (err) {cb(err); return;}
             sqlRequest.query(`insert into deceased (FirstName, LastName, Email, Phone, notDeadFrequencyId) VALUES ('${firstName}', '${lastName}', '${email}', '${phone}', 4)`, (err, results) => {
                 if (err)  { cb(err); return; }
-                cb(null, results);
+                login.login(cb, email);
             });
         });
     }

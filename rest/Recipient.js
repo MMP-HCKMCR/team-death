@@ -45,13 +45,13 @@
      }
  }
 
- exports.patchRecipient = function(cb, FirstName, LastName, RecipientNickName, Phone, eMail, Twitter) {
+ exports.patchRecipient = function(cb, id, FirstName, LastName, RecipientNickName, Phone, eMail, Twitter) {
     try {
         var date = sqlDate.getDate();
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`UPDATE Recipient SET LastUpdated = ${date} FirstName = ${FirstName}, LastName = ${LastName}, RecipientNickName = ${RecipientNickName}, Phone = ${Phone}, eMail = ${eMail}, Twitter = ${Twitter}`, (err, results) => {
+            req.query(`UPDATE Recipient SET LastUpdated = ${date} FirstName = ${FirstName}, LastName = ${LastName}, RecipientNickName = ${RecipientNickName}, Phone = ${Phone}, eMail = ${eMail}, Twitter = ${Twitter} WHERE RecipientId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             })
@@ -61,7 +61,7 @@
     }
 }
 
-exports.removeRecipient = function (cb, id) {
+exports.deleteRecipient = function (cb, id) {
     try {
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }

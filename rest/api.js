@@ -4,6 +4,7 @@ var express = require('express');
 //API implementations
 var login = require('./Login');
 var deceased = require('./Deceased');
+var recipients = require('./Recipient');
 
 // express router
 var router = express.Router();
@@ -13,7 +14,7 @@ module.exports = function() {
     router.post('/login', function (req, res) {
         login.login((e,r) => {
             res.json( {error: e, set: r});
-        }, req);
+        }, req.body.email);
     });
     
     router.get('/', function (req, res) {
@@ -49,6 +50,36 @@ module.exports = function() {
             res.json ( { error:e, set:r});
         }, req.params.id, req.body.frequency);
     });
+
+    router.delete('/deceased/:id', function (req, res) {
+        deceased.deleteDeceased((e, r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id);
+    });
+    /*
+    router.get('/recipients/:id', function (req, res) {
+        recipients.getRecipient((e, r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id);
+    });
+
+    router.post('/recipients', function (req, res) {
+        recipients.postRecipient((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.phone, req.body.email, req.body.twitter);
+    });
+
+    router.patch('/recipients/:id' = function (req, res) {
+        recipients.patchRecipient((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.phone, req.body.email, req.body.twitter);
+    });
+
+    router.delete('/recipients/:id' = function (req, res) {
+        recipients.deleteRecipient((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id);
+    });*/
 
     return router;
 }
