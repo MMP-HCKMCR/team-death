@@ -12,7 +12,7 @@
         "jquery": "v3.2.1",
         "moment": "v2.18.1",
         "validator-js": "v7.2.0",
-        "bootstrap": "v3.3.7",
+        "bootstrap": "latest",
         "bootstrap-select": "v1.12.0"
     }
 }
