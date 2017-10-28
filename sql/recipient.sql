@@ -8,5 +8,6 @@ CREATE TABLE recipient (
 	lastUpdated DATETIME DEFAULT GETDATE(),
 	phone VARCHAR(50),
 	email VARCHAR(50),
-	twitter VARCHAR(50)
+	twitter VARCHAR(50),
+	deceasedId INT NOT NULL FOREIGN KEY REFERENCES deceased(deceasedId)
 );
