@@ -11,8 +11,8 @@ exports.getDate = function() {
     return `${y}-${mo}-${d} ${h}:${mi}:${s}.${ms}`;
 }
 
-exports.parseDate = function(date) {
-    let ts = Date.parse(date);
+exports.parseDate = function(idate) {
+    let ts = Date.parse(idate);
     let date =  new Date(ts);
     let y = date.getFullYear();
     let mo = date.getMonth() + 1;

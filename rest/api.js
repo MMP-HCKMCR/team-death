@@ -5,6 +5,7 @@ var express = require('express');
 var login = require('./Login');
 var deceased = require('./Deceased');
 var recipients = require('./Recipient');
+var events = require('./Events');
 
 // express router
 var router = express.Router();
@@ -72,7 +73,7 @@ module.exports = function() {
     router.post('/recipients', function (req, res) {
         recipients.postRecipient((e,r) => {
             res.json ( {error: e, set: r});
-        }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.senderNickName, req.body.phone, req.body.email, req.body.twitter);
+        }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.senderNickName, req.body.phone, req.body.email, req.body.twitter, req.body.deceasedId);
     });
 
     router.patch('/recipients/:id', function (req, res) {
@@ -83,6 +84,30 @@ module.exports = function() {
 
     router.delete('/recipients/:id', function (req, res) {
         recipients.deleteRecipient((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id);
+    });
+
+    router.get('/events/:id', function(res, req) {
+        events.getEvent((e, r) => {
+            res.json( { error: e, set: r});
+        }, req.params.id);
+    });
+
+    router.post('/events', function (req, res) {
+        events.postEvent((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.body.date, req.body.type, req.body.recipientId, req.body.deceasedId, req.body.repeat, req.body.messageId, req.body.sms, req.body.email, req.body.twitter);
+    });
+
+    router.patch('/events/:id', function (req, res) {
+        events.patchEvent((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id, req.body.date, req.body.type, req.body.recipientId, req.body.deceasedId, req.body.repeat, req.body.messageId, req.body.sms, req.body.email, req.body.twitter);
+    });
+
+    router.delete('/events/:id', function (req, res) {
+        events.deleteEvent((e,r) => {
             res.json ( {error: e, set: r});
         }, req.params.id);
     });
