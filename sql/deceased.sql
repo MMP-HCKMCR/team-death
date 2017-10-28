@@ -7,6 +7,7 @@ CREATE TABLE deceased (
 	deceased BIT DEFAULT 0,
 	dateOfDeath DATETIME,
 	notDeadYet DATETIME,
-	notDeadFrequencyId INT,
-    FK_notDeadFrequencyId INT FOREIGN KEY REFERENCES notDeadFrequency(notDeadFrequencyId)
+	notDeadFrequencyId INT NOT NULL FOREIGN KEY REFERENCES notDeadFrequency(notDeadFrequencyId),
+	email VARCHAR(255) DEFAULT '',
+	phone VARCHAR(50) DEFAULT ''
 );
