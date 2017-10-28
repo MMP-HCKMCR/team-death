@@ -76,4 +76,19 @@
      catch (err) {
          cb(err);
      }
+
+     exports.getEventsForRecipient(cb, id) {
+        try {
+            sqlConn.getSqlRequest((err, req) => {
+                if (err) { cb(err); return; }
+    
+                req.query(`SELECT * FROM Event WHERE Recipient = ${id}`, (err, results) => {
+                    if (err) { cb(err); return; }
+                    cb(null, results);
+                });
+            });
+        } catch (err) {
+            cb(err);
+        }
+     }
  }

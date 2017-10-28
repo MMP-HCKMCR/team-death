@@ -112,5 +112,11 @@ module.exports = function() {
         }, req.params.id);
     });
 
+    router.get('/recipients/:id/events', function (req, res) {
+        events.getEventsForRecipient((e,r) => {
+            res.json( { error: e, set: r});
+        }, req.params.id);
+    })
+
     return router;
 }
