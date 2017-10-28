@@ -3,6 +3,10 @@
   "description": "Rest API",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+      "start": "node site.js",
+      "postinstall": "bash ./post_install.sh"
+  },
   "dependencies": {
     "express": "^4.15.4",
     "body-parser": "^1.17.2",
