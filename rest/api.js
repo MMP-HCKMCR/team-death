@@ -56,6 +56,12 @@ module.exports = function() {
             res.json ( {error: e, set: r});
         }, req.params.id);
     });
+
+    router.get('/deceased/:id/recipeints', function (req, res) {
+        recipients.getRecipientsForDeceased((e, r) => {
+            res.json ( {error: e, set:r});
+        }, req.params.id)
+    })
     
     router.get('/recipients/:id', function (req, res) {
         recipients.getRecipient((e, r) => {

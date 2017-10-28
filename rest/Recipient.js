@@ -10,6 +10,7 @@
     Phone VARCHAR
     eMail VARCHAR
     Twitter VARCHAR
+    DeceasedId INT FK
  */
 
  var sqlConn = require('./SqlConn');
@@ -30,12 +31,27 @@
     }
  }
 
- exports.postRecipient = function(cb, FirstName, LastName, RecipientNickName, Phone, eMail, Twitter) {
+ exports.getRecipientsForDeceased = function(cb, id) {
+    try {
+        sqlConn.getSqlRequest((err, req) => {
+            if (err) { cb(err); return; }
+
+            req.query(`SELECT * FROM Recipient WHERE DeceasedId = ${id}`, (err, results) => {
+                if (err) { cb(err); return; }
+                cb(null, results);
+            });
+        });
+    } catch (err) {
+        cb(err);
+    }
+ }
+
+ exports.postRecipient = function(cb, FirstName, LastName, RecipientNickName, Phone, eMail, Twitter, deceasedId) {
      try {
          sqlConn.getSqlRequest((err, req) => {
              if (err) { cb(err); return; }
 
-             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, Phone, eMail, Twitter) VALUES (${FirstName}, ${LastName}, ${RecipientNickName}, ${Phone}, ${eMail}, ${Twitter})`, (err, results) => {
+             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, Phone, eMail, Twitter, DeceasedId) VALUES ('${FirstName}', '${LastName}', '${RecipientNickName}', '${Phone}', '${eMail}', '${Twitter}', ${deceasedId})`, (err, results) => {
                  if (err) { cb(err); return; }
                  cb(null, results);
              })
@@ -51,7 +67,7 @@
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`UPDATE Recipient SET LastUpdated = ${date} FirstName = ${FirstName}, LastName = ${LastName}, RecipientNickName = ${RecipientNickName}, Phone = ${Phone}, eMail = ${eMail}, Twitter = ${Twitter} WHERE RecipientId = ${id}`, (err, results) => {
+            req.query(`UPDATE Recipient SET LastUpdated = '${date}' FirstName = '${FirstName}', LastName = '${LastName}', RecipientNickName = '${RecipientNickName}', Phone = '${Phone}', eMail = '${eMail}', Twitter = '${Twitter}' WHERE RecipientId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             })
