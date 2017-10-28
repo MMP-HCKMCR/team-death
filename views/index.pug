@@ -1,48 +1,6 @@
-<doctype html>
-<html>
-
-<head>
-    <title>Site</title>
-    //- <link rel="stylesheet" href="/css/bootstrap.min.css">
-    //- <script src="/js/jquery.min.js"></script>
-    //- <script src="/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="https://bootswatch.com/simplex/"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-</head>       
-
-<body class="">
-
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-bar-main">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">BTW <3</a>
-            </div>
-        
-            <div class="collapse navbar-collapse" id="nav-bar-main">
-            <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Recipients</a></li>
-                <li><a href="#">Messages</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Sign in</a></li>
-            </ul>
-            </div>
-        </div>
-    </nav>
-    <div id="Body" class="container">
-        <h1>WELCOME</h1>
-    </div>
-</body>
-
-</html> 
+html
+	include partials/head.pug
+	include partials/navigation.pug
+	body
+		.container
+			h1.text-center Talk to you loved ones from the grave!
