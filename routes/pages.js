@@ -21,6 +21,8 @@ module.exports = function() {
     router.get('/signin', function(req, res) {
         res.render('signin', {});
     });
-
+    router.get('/profile', function(req, res) {
+        res.render('profile', {});
+    });
     return router;
 }
