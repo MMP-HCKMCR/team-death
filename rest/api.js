@@ -56,7 +56,7 @@ module.exports = function() {
             res.json ( {error: e, set: r});
         }, req.params.id);
     });
-    /*
+    
     router.get('/recipients/:id', function (req, res) {
         recipients.getRecipient((e, r) => {
             res.json ( {error: e, set: r});
@@ -69,17 +69,17 @@ module.exports = function() {
         }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.phone, req.body.email, req.body.twitter);
     });
 
-    router.patch('/recipients/:id' = function (req, res) {
+    router.patch('/recipients/:id', function (req, res) {
         recipients.patchRecipient((e,r) => {
             res.json ( {error: e, set: r});
         }, req.params.id, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.phone, req.body.email, req.body.twitter);
     });
 
-    router.delete('/recipients/:id' = function (req, res) {
+    router.delete('/recipients/:id', function (req, res) {
         recipients.deleteRecipient((e,r) => {
             res.json ( {error: e, set: r});
         }, req.params.id);
-    });*/
+    });
 
     return router;
 }
