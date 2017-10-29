@@ -36,7 +36,12 @@
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`SELECT * FROM Recipient WHERE DeceasedId = ${id}`, (err, results) => {
+            var query = `\
+                SELECT *, (SELECT COUNT(1) FROM [Event] e WHERE e.deceasedId = r.deceasedId AND e.recipientid = r.recipientId) [Count]
+                FROM recipient r
+                WHERE deceasedId = ${id}`
+
+            req.query(query, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             });

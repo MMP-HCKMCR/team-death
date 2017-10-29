@@ -69,11 +69,11 @@ html
 										br
 										.row
 											.col-sm-2
-												input#inputDays.form-control(type="number", value="0")
+												input#inputDays.form-control(type="number", value="0", min="0")
 											.col-sm-2
-												input#inputHour.form-control(type="number", value="0")
+												input#inputHour.form-control(type="number", value="0", min="0")
 											.col-sm-2
-												input#inputMinutes.form-control(type="number", value="0")
+												input#inputMinutes.form-control(type="number", value="0", min="0")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 										button.message-submit.btn.btn-success.pull-right(type="button", data-dismiss='modal') Add
