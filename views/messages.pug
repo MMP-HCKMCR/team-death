@@ -12,9 +12,8 @@ html
 				table.table.table-striped
 					thead
 						tr
-							th Message
+							th(style="width:70%;") Message
 							th Date
-							th 
 					tbody#recipientstable
 			#myModal.modal.fade(role='dialog')
 				.modal-dialog
@@ -45,11 +44,36 @@ html
 											option Birthday
 											option Christmas
 											option Valentines
-											option Custom
+											option Specific Date
+											option Fixed time after death
 									.form-group#datePicker
 										label.control-label(for="inputDate")  Date
 										br
-										input#inputDate.form-control(type="date")
+										input#inputDate.form-control(type="datetime-local")
+										.checkbox
+											label
+												input#inputSMS(type='checkbox')
+												|  Repeat Annually
+									.form-group#datebPicker
+										label.control-label(for="inputDate")  Date birth
+										br
+										input#inputbDate.form-control(type="datetime-local")
+									.form-group#timePicker
+										.row
+											.col-sm-2
+												label.control-label(for="inputDays")  Days
+											.col-sm-2
+												label.control-label(for="inputHours")  Hours
+											.col-sm-2
+												label.control-label(for="inputMinutes")  Minutes
+										br
+										.row
+											.col-sm-2
+												input#inputDays.form-control(type="number", placeholder="0")
+											.col-sm-2
+												input#inputHour.form-control(type="number", placeholder="0")
+											.col-sm-2
+												input#inputMinutes.form-control(type="number", placeholder="0")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 										button.message-submit.btn.btn-success.pull-right(type="button", data-dismiss='modal') Add

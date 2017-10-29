@@ -1,6 +1,78 @@
 html
 	include partials/head.pug
 	include partials/navigation.pug
+	script(src='scripts/recipients.js')
+
 	body
 		.container
 			h1.text-center Talk to you loved ones from the grave!
+			hr
+			.l1s
+				h1.col-md-8.col-md-offset-2.text-center Loved ones
+				.col-md-1
+					.button.btn.btn-success.btn-lg(data-toggle="modal" data-target="#myModal") Add
+				.col-md-10.col-md-offset-1
+					table.table.table-striped
+						thead
+							tr
+								th Name
+								th Number
+								th No. Messages
+								th 
+						tbody#recipientstable
+				#myModal.modal.fade(role='dialog')
+					.modal-dialog
+						.modal-content
+							.modal-header
+								button.close(type='button', data-dismiss='modal') ×
+								h4.modal-title.text-center Add a New Recipient
+							.modal-body.form-horizontal.col-sm-10.col-sm-offset-1
+								form#addRecipForm
+									fieldset
+										.form-group
+											label.control-label(for="inputEmail") Email
+											br
+											input#inputNumber.form-control(type="text", placeholder="Email")
+										.form-group
+											label.control-label(for="inputFirstName") First Name
+											br
+											input#inputFirstName.form-control(type="text", placeholder="First Name")
+										.form-group
+											label.control-label(for="inputLastName") Last Name
+											br
+											input#inputLastName.form-control(type="text", placeholder="Last Name")
+										.form-group
+											label.control-label(for="selectorSex") Sex
+											br
+											select#selectorSex.form-control(type="select")
+												option(value="M") Male
+												option(value="F") Female
+										.form-group
+											label.control-label(for="inputDoB") Date of Birth
+											br
+											input#inputDoB.form-control(type="date")
+										.form-group
+											.checkbox
+												label
+													input#checkMeetup(type="checkbox")
+													| Meet new people
+										.form-group
+											label.control-label(for="inputRNN") Your Nickname for them
+											br
+											input#inputLastName.form-control(type="text", placeholder="Name")
+										.form-group
+											label.control-label(for="inputSNN") Their Nickname for you
+											br
+											input#inputLastName.form-control(type="text", placeholder="Name")
+										.form-group
+											label.control-label(for="inputMobileNumber") Mobile Number
+											br
+											input#inputNumber.form-control(type="text", placeholder="Mobile Number")
+										.form-group
+											label.control-label(for="inputTwitter") Twitter handle
+											br
+											input#inputNumber.form-control(type="text", placeholder="@twitter")
+										.form-group
+											button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+											button.recipient-submit.btn.btn-success.pull-right(type="button", data-dismiss='modal') Add
+							.modal-footer

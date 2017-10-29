@@ -6,6 +6,8 @@ $(document).ready(function() {
     function getUsers() {
         if(getCookie("userId") != null && getCookie("userId") != "" ){
             userId = getCookie("userId");
+        }else{
+            $(location).attr('href', '/signin')
         }
         if(getCookie("recipientId") != null && getCookie("recipientId") != "" ){
             recipientId = getCookie("recipientId");
@@ -24,16 +26,28 @@ $(document).ready(function() {
                 return 4;
         }
     }
-
-
-    $('#actionType').change(function(){
-        console.log("adasdas");
-        if ($(this).val() == "Custom" || $(this).val() == "Birthday"){
+    $('#datePicker').hide();
+    $('#timePicker').hide();  
+    $('#inputEvent').change(function(){
+        if ($(this).val() == "Specific Date" ){
+            $('#datebPicker').hide();            
             $('#datePicker').show();
-        }else{
+            $('#timePicker').hide();            
+        }else if ($(this).val() == "Fixed time after death"){
+            $('#datebPicker').hide();            
             $('#datePicker').hide();
+            $('#timePicker').show();  
+        }else if ($(this).val() == "Birthday"){
+            $('#datebPicker').show();
+            $('#datePicker').hide();            
+            $('#timePicker').hide();  
+        }else{
+            $('#datebPicker').hide();
+            $('#datePicker').hide();
+            $('#timePicker').hide();  
         }        
     })
+
 
 
     function getMessages(){
@@ -48,8 +62,12 @@ $(document).ready(function() {
                 {                
                     for(var i in data["set"]["recordset"]) {
                         obj= data["set"]["recordset"][i]
-                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + obj["eventDate"] + "</td><td>" + 1 +
-                        "</td><td><a class='btn btn-success btn-sm pull-right messagesbutton' id='recipient"+obj["recipientId"]+"' href='/messages'>Show</a></td></tr>";
+                        var date = obj["eventDate"]
+                        if(date == "2017-01-01T12:00:00.000Z")
+                        {
+                            date = obj["minsAfterDeath"] + " Minutes after Death."
+                        }
+                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + date + "</td></tr>";
                         $(rows).appendTo("#recipientstable");
                         // $('#recipient'+obj['recipientId']).unbind().bind('click', (e) => showMessages(e.target));
                     }
@@ -65,9 +83,41 @@ $(document).ready(function() {
 
 
     $('.message-submit').click(function()
-    {   
+    {           
         getUsers();
         var evType = getEventType($('#inputEvent').val());
+        var date = "2017-01-01T12:00"
+        var repeat = 0   
+        var mad = 0  
+        if(evType == 2)
+        {
+            date = 	$('#inputbDate').val()
+            repeat = 1;
+        }
+        if(evType == 2)
+        {
+            date = '2017-12-25T12:00'
+            repeat = 1;
+        }
+        if(evType == 3)
+        {
+            date = 	'2018-02-14T12:00'
+            repeat = 1;            
+        }
+        if(evType == 4)
+        {
+            if ($('#inputEvent').val() == "Specific Date" ){
+                date = 	$('#inputDate').val()
+                repeat = +$('#inputRepeat').is(':checked');     
+            }else if ($('#inputEvent').val() == "Fixed time after death"){
+                var m = parseInt($('#inputMinutes').val())
+                var h = parseInt($('#inputHour').val()) * 60
+                var d = parseInt($('#inputDays').val()) * 60 * 24
+                console.log(m + "," + d +","+ h)
+                mad = m + h + d
+            }         
+        }
+
         $.ajax({
             url: '/rest/api/events',
             type:'POST',
@@ -76,20 +126,20 @@ $(document).ready(function() {
                 deceasedId: userId,  
                 recipientId: recipientId,                                               
                 messageText: $('#inputMessage').val(),                
-                date: $('#inputDate').val(),
+                date: date,
                 type: evType,     
-                repeat: 0,      
+                repeat: repeat,      
                 sms: +$('#inputSMS').is(':checked'),      
                 email: +$('#inputEmail').is(':checked'),
                 twitter: 0,
-                minsAfterDeath: 0
+                minsAfterDeath: mad
             },
             success: function(data)
             {
                 console.log(data)
                 if(data["set"]["rowsAffected"] == 1)
                 {      
-                    getRecipients();
+                    getMessages();
                     $("#addRecipForm").trigger('reset'); 
                 }                  
                 else

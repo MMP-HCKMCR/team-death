@@ -3,6 +3,8 @@ $(document).ready(function() {
     var userId = 0;
     if(getCookie("userId") != null && getCookie("userId") != "" ){
         userId = getCookie("userId");
+    }else{
+        $(location).attr('href', '/signin')
     }
     
     // $.get("/rest/api/deceased/"+userId+"/recipients", function(data, status){
