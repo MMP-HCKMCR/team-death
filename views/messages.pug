@@ -12,7 +12,7 @@ html
 				table.table.table-striped
 					thead
 						tr
-							th(style="width:70%;") Message
+							th(style="width:55%;") Message
 							th Date
 					tbody#recipientstable
 			#myModal.modal.fade(role='dialog')
@@ -52,7 +52,7 @@ html
 										input#inputDate.form-control(type="datetime-local")
 										.checkbox
 											label
-												input#inputSMS(type='checkbox')
+												input#inputRepeat(type='checkbox')
 												|  Repeat Annually
 									.form-group#datebPicker
 										label.control-label(for="inputDate")  Date birth
@@ -72,7 +72,9 @@ html
 												input#inputDays.form-control(type="number", value="0", min="0")
 											.col-sm-2
 												input#inputHour.form-control(type="number", value="0", min="0")
-											.col-sm-2
+
+											.col-sm-3.text-right
+
 												input#inputMinutes.form-control(type="number", value="0", min="0")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel

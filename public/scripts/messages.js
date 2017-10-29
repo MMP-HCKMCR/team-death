@@ -67,9 +67,13 @@ $(document).ready(function() {
                         {
                             date = obj["minsAfterDeath"] + " Minutes after Death."
                         }
-                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + date + "</td></tr>";
+                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + date + "</td>"+
+                        "<td><a class='btn btn-warning btn-sm pull-right messagesbutton' id='edit"+obj["eventId"]+"'data-toggle='modal' data-target='#myModal' >Edit</a>"+
+                        "<a class='btn btn-danger btn-sm pull-right messagesbutton' id='delete"+obj["eventId"]+"'>Delete</a></td></tr>";
                         $(rows).appendTo("#recipientstable");
-                        // $('#recipient'+obj['recipientId']).unbind().bind('click', (e) => showMessages(e.target));
+                        $('#delete'+obj['eventId']).unbind().bind('click', (e) => deleteMessage(e.target));
+                        $('#edit'+obj['eventId']).unbind().bind('click', (e) => editMessage(e.target));
+                        
                     }
                 }                  
                 else
@@ -117,10 +121,16 @@ $(document).ready(function() {
                 mad = m + h + d
             }         
         }
-
+        var url = '/rest/api/events'
+        var type = 'POST'
+        if(eventId != -1)
+        {
+            url = '/rest/api/events/' + eventId
+            type = 'PATCH'
+        }
         $.ajax({
-            url: '/rest/api/events',
-            type:'POST',
+            url: url,
+            type: type,
             data:
             {
                 deceasedId: userId,  
@@ -149,5 +159,80 @@ $(document).ready(function() {
             }, 
         });
     }) 
+
+    function deleteMessage(item){
+        var url = '/rest/api/events/' + $(item).attr('id').replace("delete", "")
+        console.log(url)
+        $.ajax({
+            url: url,
+            type:'DELETE',
+            success: function(data)
+            {
+                console.log(data)
+                if(data["set"]["rowsAffected"] == 1)
+                {      
+                    getMessages();
+                }                  
+                else
+                {
+                    console.log("ERROR not deleted")               
+                }             
+            }, 
+        });
+    }
+    function editMessage(item){
+        $.ajax({
+            url: '/rest/api/events/' + $(item).attr('id').replace("edit", ""),
+            type:'GET',
+            success: function(data)
+            {
+                if(data["set"]["recordset"].length >= 1)
+                {                
+                    var obj =  data["set"]["recordset"][0];
+                    console.log(data["set"]["recordset"][0])
+                    date = obj["eventDate"].substring(0,(obj["eventDate"]).length - 8);
+                    eventId = obj["eventId"]                   
+                    $('#inputDate').val(date)  
+                    $('#inputbDate').val(date)                      
+                    $('#inputMessage').val(obj["messageText"])  
+                    $('#inputSMS').prop('checked', obj["sms"]);
+                    $('#inputEmail').prop('checked', obj["email"]);
+                    $('#inputRepeat').prop('checked', obj["annualRepeat"]);
+                    
+                    console.log(date)
+                    if(obj["eventTypeId"] == 4)
+                    {
+                        if(date == "2017-01-01T12:00"){
+                            $("#inputEvent").val("Fixed time after death").change()
+                            $('#inputMinutes').val(obj["minsAfterDeath"])                      
+                        }
+                        else 
+                        {
+                            $("#inputEvent").val("Specific Date").change()
+                        }
+                    }else{
+                        switch(obj["eventTypeId"]){
+                        case 1:
+                            $("#inputEvent").val("Birthday").change()                       
+                        case 2:
+                            $("#inputEvent").val("Christmas").change()                       
+                        case 3:
+                            $("#inputEvent").val("Valentines").change()                      
+                        default :
+                            $("#inputEvent").val("Birthday").change()                       
+                        }
+                        
+                    } 
+                    
+                }                  
+                else
+                {
+                    console.log("ERROR NO USER")               
+                }             
+            }, 
+            failure: function(asd){}
+        });
+    }
+        
     getMessages(); 
 });

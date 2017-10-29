@@ -8,7 +8,7 @@ var recipients = require('./Recipient');
 var events = require('./Events');
 var messages = require('./Messages');
 
-//var encryption = require('../gchq_encryption/encrypt')
+// var encryption = require('../gchq_encryption/encrypt')
 
 // express router
 var router = express.Router();
@@ -109,7 +109,7 @@ module.exports = function() {
         }, req.params.id);
     });
 
-    router.get('/events/:id', function(res, req) {
+    router.get('/events/:id', function(req, res) {
         events.getEvent((e, r) => {
             res.json( { error: e, set: r});
         }, req.params.id);
@@ -158,13 +158,13 @@ module.exports = function() {
     });
 
 
+    // router.post('/sensitive_data/send', function(req, res) {
+    //     encryption.encryptAndStore(req.body.message, req.body.id);
+    // });
 
-    /*router.post('/sensitive_data/send', function(req, res) {
-        encryption.encryptAndStore(req.body.message, req.body.id);
-    });
+    // router.post('/sensitive_data/receive', function(req, res) {
+    //     encryption.decryptAndSend(req.body.message, req.body.seed);
+    // });
 
-    router.post('/sensitive_data/receive', function(req, res) {
-        encryption.decryptAndSend(req.body.message, req.body.seed);
-    });*/
     return router;
 }
