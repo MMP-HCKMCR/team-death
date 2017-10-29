@@ -28,7 +28,7 @@ html
 									.form-group
 										label.control-label(for="inputMessage") Message (Max 160 char)
 										br
-										input#inputNumber.form-control(type="text", placeholder="Message ")
+										input#inputMessage.form-control(type="text", placeholder="Message ")
 									.form-group
 										label.control-label(for="none") Send via								
 										.checkbox
@@ -40,8 +40,8 @@ html
 												input#inputEmail(type='checkbox')
 												|  Email
 									.form-group
-										label(for='inputEvenet') Message Type
-										select#actionType.form-control
+										label(for='inputEvent') Message Type
+										select#inputEvent.form-control
 											option Birthday
 											option Christmas
 											option Valentines
@@ -49,7 +49,7 @@ html
 									.form-group#datePicker
 										label.control-label(for="inputDate")  Date
 										br
-										input#inputFirstName.form-control(type="date")
+										input#inputDate.form-control(type="date")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 										button.message-submit.btn.btn-success.pull-right(type="button", data-dismiss='modal') Add

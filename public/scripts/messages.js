@@ -1,12 +1,28 @@
 $(document).ready(function() {
-    
     var userId = 0;
-    if(getCookie("userId") != null && getCookie("userId") != "" ){
-        userId = getCookie("userId");
-    }
     var recipientId = 0;
-    if(getCookie("recipientId") != null && getCookie("recipientId") != "" ){
-        recipientId = getCookie("recipientId");
+    getUsers();
+
+    function getUsers() {
+        if(getCookie("userId") != null && getCookie("userId") != "" ){
+            userId = getCookie("userId");
+        }
+        if(getCookie("recipientId") != null && getCookie("recipientId") != "" ){
+            recipientId = getCookie("recipientId");
+        }
+    }
+
+    function getEventType(typeString) {
+        switch (typeString) {
+            case "Birthday":
+                return 1
+            case "Christmas":
+                return 2;
+            case "Valentines":
+                return 3;
+            default:
+                return 4;
+        }
     }
 
 
@@ -50,6 +66,8 @@ $(document).ready(function() {
 
     $('.message-submit').click(function()
     {   
+        getUsers();
+        var evType = getEventType($('#inputEvent').val());
         $.ajax({
             url: '/rest/api/events',
             type:'POST',
@@ -59,12 +77,12 @@ $(document).ready(function() {
                 recipientId: recipientId,                                               
                 messageText: $('#inputMessage').val(),                
                 date: $('#inputDate').val(),
-                type: $('#inputType').val(),     
+                type: evType,     
                 repeat: 0,      
-                SMS: $('#inputSMS').val(),      
-                email: $('#inputEmail').val(),
-                twitter: '@'            
-                
+                sms: +$('#inputSMS').is(':checked'),      
+                email: +$('#inputEmail').is(':checked'),
+                twitter: 0,
+                minsAfterDeath: 0
             },
             success: function(data)
             {
