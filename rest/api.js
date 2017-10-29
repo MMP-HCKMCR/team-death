@@ -98,7 +98,7 @@ module.exports = function() {
     router.post('/events', function (req, res) {
         events.postEvent((e,r) => {
             res.json ( {error: e, set: r});
-        }, req.body.date, req.body.type, req.body.recipientId, req.body.deceasedId, req.body.repeat, req.body.messageText, req.body.sms, req.body.email, req.body.twitter);
+        }, req.body.date, req.body.type, req.body.recipientId, req.body.deceasedId, req.body.repeat, req.body.messageText, req.body.sms, req.body.email, req.body.twitter, req.body.minsAfterDeath);
     });
 
     router.patch('/events/:id', function (req, res) {

@@ -31,12 +31,12 @@
     }
  }
 
- exports.postEvent = function (cb, date, type, recipientId, deceasedId, repeat, messageString, sms, email, twitter) {
+ exports.postEvent = function (cb, date, type, recipientId, deceasedId, repeat, messageString, sms, email, twitter, minsAfterDeath) {
      try {
          let msDate = sqlDate.parseDate(date);
         sqlConn.getSqlRequest((err, req) => {
              if (err) { cb(err); return; }
-             req.query(`INSERT INTO Event (eventDate, eventTypeId, recipientId, deceasedId, annualRepeat, messageId, messageText, SMS, email, twitter) VALUES ('${msDate}', ${type}, ${recipientId}, ${deceasedId}, ${repeat}, 1, '${messageString}', ${sms}, ${email}, ${twitter})`, (err, results) => {
+             req.query(`INSERT INTO Event (eventDate, eventTypeId, recipientId, deceasedId, annualRepeat, messageId, messageText, SMS, email, twitter, minsAfterDeath) VALUES ('${msDate}', ${type}, ${recipientId}, ${deceasedId}, ${repeat}, 1, '${messageString}', ${sms}, ${email}, ${twitter}, ${minsAfterDeath})`, (err, results) => {
                  if (err) { cb(err); return; }
                  cb(null, results);
              });
