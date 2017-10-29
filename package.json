@@ -22,6 +22,7 @@
     "gulp": "^3.9.1",
     "bower": "^1.8.0",
     "enum": "^2.4.0",
-    "clockwork": "^0.1.4"
+    "clockwork": "^0.1.4",
+    "mersenne-twister": "^1.1.0"
   }
 }
