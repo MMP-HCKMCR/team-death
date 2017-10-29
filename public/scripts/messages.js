@@ -67,9 +67,13 @@ $(document).ready(function() {
                         {
                             date = obj["minsAfterDeath"] + " Minutes after Death."
                         }
-                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + date + "</td></tr>";
+                        rows = "<tr><td>" + obj["messageText"] + "</td><td>" + date + "</td>"+
+                        "<td><a class='btn btn-warning btn-sm pull-right messagesbutton' id='edit"+obj["eventId"]+"'data-toggle='modal' data-target='#myModal' >Edit</a>"+
+                        "<a class='btn btn-danger btn-sm pull-right messagesbutton' id='delete"+obj["eventId"]+"'>Delete</a></td></tr>";
                         $(rows).appendTo("#recipientstable");
-                        // $('#recipient'+obj['recipientId']).unbind().bind('click', (e) => showMessages(e.target));
+                        $('#delete'+obj['eventId']).unbind().bind('click', (e) => deleteMessage(e.target));
+                        $('#edit'+obj['eventId']).unbind().bind('click', (e) => editMessage(e.target));
+                        
                     }
                 }                  
                 else
