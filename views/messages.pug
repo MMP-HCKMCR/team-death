@@ -52,7 +52,7 @@ html
 										input#inputDate.form-control(type="datetime-local")
 										.checkbox
 											label
-												input#inputSMS(type='checkbox')
+												input#inputRepeat(type='checkbox')
 												|  Repeat Annually
 									.form-group#datebPicker
 										label.control-label(for="inputDate")  Date birth
@@ -71,9 +71,9 @@ html
 											.col-sm-2
 												input#inputDays.form-control(type="number", placeholder="0")
 											.col-sm-2
-												input#inputHour.form-control(type="number", placeholder="0")
-											.col-sm-2
-												input#inputMinutes.form-control(type="number", placeholder="0")
+												input#inputHour.form-control(type="number", value="0", min="0")
+											.col-sm-3.text-right
+												input#inputMinutes.form-control(type="number", value="0", min="0")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel
 										button.message-submit.btn.btn-success.pull-right(type="button", data-dismiss='modal') Add
