@@ -37,7 +37,9 @@
             if (err) { cb(err); return; }
 
             var query = `\
-                SELECT *, (SELECT COUNT(1) FROM [Event] e WHERE e.deceasedId = r.deceasedId AND e.recipientid = r.recipientId) [Count]
+                SELECT
+                    *,
+                    (SELECT COUNT(1) FROM [Event] e WHERE e.deceasedId = r.deceasedId AND e.recipientid = r.recipientId) [Count]
                 FROM recipient r
                 WHERE deceasedId = ${id}`
 

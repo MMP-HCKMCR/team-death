@@ -40,7 +40,7 @@ $(document).ready(function() {
                 {                
                     for(var i in data["set"]["recordset"]) {
                         obj= data["set"]["recordset"][i]
-                        rows = "<tr><td>" + obj["firstName"] + " " + obj["lastName"] + "</td><td>" + obj["phone"] + "</td><td>" + 1 +
+                        rows = "<tr><td>" + obj["firstName"] + " " + obj["lastName"] + "</td><td>" + obj["phone"] + "</td><td>" + obj["Count"] +
                         "</td><td><a class='btn btn-success btn-sm pull-right messagesbutton' id='recipient"+obj["recipientId"]+"' href='/messages'>Messages</a></td></tr>";
                         $(rows).appendTo("#recipientstable");
                         $('#recipient'+obj['recipientId']).unbind().bind('click', (e) => showMessages(e.target));
