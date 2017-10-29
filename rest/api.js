@@ -158,7 +158,6 @@ module.exports = function() {
     });
 
 
-
     // router.post('/sensitive_data/send', function(req, res) {
     //     encryption.encryptAndStore(req.body.message, req.body.id);
     // });

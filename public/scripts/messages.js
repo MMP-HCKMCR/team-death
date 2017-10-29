@@ -93,7 +93,7 @@ $(document).ready(function() {
         var date = "2017-01-01T12:00"
         var repeat = 0   
         var mad = 0  
-        if(evType == 2)
+        if(evType == 1)
         {
             date = 	$('#inputbDate').val()
             repeat = 1;

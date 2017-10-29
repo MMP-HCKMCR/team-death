@@ -69,10 +69,12 @@ html
 										br
 										.row
 											.col-sm-2
-												input#inputDays.form-control(type="number", placeholder="0")
+												input#inputDays.form-control(type="number", value="0", min="0")
 											.col-sm-2
 												input#inputHour.form-control(type="number", value="0", min="0")
+
 											.col-sm-3.text-right
+
 												input#inputMinutes.form-control(type="number", value="0", min="0")
 									.form-group
 										button.btn.btn-default(type='button', data-dismiss='modal') Cancel

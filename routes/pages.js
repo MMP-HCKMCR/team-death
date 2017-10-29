@@ -22,7 +22,7 @@ module.exports = function() {
         res.render('signin', {});
     });
     router.get('/profile', function(req, res) {
-        res.render('profile', {});
+        res.render('Profile', {});
     });
     return router;
 }
