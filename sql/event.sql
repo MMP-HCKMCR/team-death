@@ -6,6 +6,7 @@ CREATE TABLE event (
 	deceasedId INT NOT NULL FOREIGN KEY REFERENCES deceased(deceasedId),
 	annualRepeat BIT DEFAULT 0,
 	messageId INT NOT NULL FOREIGN KEY REFERENCES message(messageId),
+	messageText VARCHAR(160),
 	SMS BIT DEFAULT 0,
 	email BIT DEFAULT 0,
 	twitter BIT DEFAULT 0,
