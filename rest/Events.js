@@ -82,7 +82,7 @@ exports.getEventsForRecipient = function(cb, id) {
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`SELECT * FROM Event WHERE Recipient = ${id}`, (err, results) => {
+            req.query(`SELECT * FROM Event WHERE RecipientId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             });
