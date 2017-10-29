@@ -8,6 +8,8 @@ var recipients = require('./Recipient');
 var events = require('./Events');
 var messages = require('./Messages');
 
+var encryption = require('../gchq_encryption/encrypt')
+
 // express router
 var router = express.Router();
 
@@ -24,15 +26,27 @@ module.exports = function() {
     });
 
     router.get('/deceased', function (req, res) {
-        deceased.getDeceased((e, r) => {
+        deceased.getDeceaseds((e, r) => {
             res.json({ error: e, set: r });
         });
+    });
+
+    router.get('/deceased/:id', function (req, res) {
+        deceased.getDeceased((e, r) => {
+            res.json({ error: e, set: r });
+        }, req.params.id);
     });
 
     router.post('/deceased', function (req, res) {
         deceased.postDeceased((e,r) => {
             res.json( {error: e, set: r});
         }, req.body.firstName, req.body.lastName, req.body.email, req.body.phone);
+    });
+
+    router.patch('/deceased/:id', function (req, res) {
+        deceased.patchDeceased((e,r) => {
+            res.json( {error: e, set: r});
+        }, req.params.id, req);
     });
 
     router.patch('/deceased/:id/hasDied', function (req, res) {
@@ -141,7 +155,16 @@ module.exports = function() {
         messages.deleteMessage((e, r) => {
             res.json( { error: e, set: r});
         }, req.params.id);
-    })
+    });
 
+
+
+    router.post('/sensitive_data/send', function(req, res) {
+        encryption.encryptAndStore(req.body.message, req.body.id);
+    });
+
+    router.post('/sensitive_data/receive', function(req, res) {
+        encryption.decryptAndSend(req.body.message, req.body.seed);
+    });
     return router;
 }

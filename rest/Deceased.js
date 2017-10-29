@@ -3,12 +3,27 @@ var sqlDate = require('./msDate')
 var login = require('./Login')
 
 //function getDeceased () {
-exports.getDeceased = function(cb) {
+exports.getDeceaseds = function(cb) {
     try {
         sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
             req.query("select * from deceased", (err, results) => {
+                if (err) { cb(err); return; }
+                cb(null, results);
+            });
+        });
+    } catch (err) {
+        cb(err);
+    }
+}
+
+exports.getDeceased = function(cb, id) {
+    try {
+        sqlConn.getSqlRequest((err, req) => {
+            if (err) { cb(err); return; }
+
+            req.query(`select * from deceased WHERE deceasedId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             });
@@ -85,6 +100,59 @@ exports.patchSetInterval = function(cb, deceasedId, interval) {
                 cb(null, results);
             });
         });
+    }
+    catch (err) {
+        cb(err);
+    }
+}
+
+exports.patchDeceased = function(cb, deceasedId, req) {
+    try {
+        //firstName
+        //lastName
+        //notDeadFrequencyId
+        //email
+        //phone
+        if (req.body.firstName) {
+            sqlConn.getSqlRequest((err, sqlRequest) => {
+                if (err) {cb(err); return;}
+                sqlRequest.query(`update deceased set firstName = ${req.body.firstName} where deceased ID = ${deceasedId}`, (err, results) => {
+                    if (err)  { cb(err); return; }
+                });
+            });
+        }
+        if (req.body.lastName) {
+            sqlConn.getSqlRequest((err, sqlRequest) => {
+                if (err) {cb(err); return;}
+                sqlRequest.query(`update deceased set lastName = ${req.body.lastName} where deceased ID = ${deceasedId}`, (err, results) => {
+                    if (err)  { cb(err); return; }
+                });
+            });
+        }
+        if (req.body.notDeadFrequencyId) {
+            sqlConn.getSqlRequest((err, sqlRequest) => {
+                if (err) {cb(err); return;}
+                sqlRequest.query(`update deceased set notDeadFrequencyId = ${req.body.notDeadFrequencyId} where deceased ID = ${deceasedId}`, (err, results) => {
+                    if (err)  { cb(err); return; }
+                });
+            });
+        }
+        if (req.body.email) {
+            sqlConn.getSqlRequest((err, sqlRequest) => {
+                if (err) {cb(err); return;}
+                sqlRequest.query(`update deceased set email = ${req.body.email} where deceased ID = ${deceasedId}`, (err, results) => {
+                    if (err)  { cb(err); return; }
+                });
+            });
+        }
+        if (req.body.phone) {
+            sqlConn.getSqlRequest((err, sqlRequest) => {
+                if (err) {cb(err); return;}
+                sqlRequest.query(`update deceased set phone = ${req.body.phone} where deceased ID = ${deceasedId}`, (err, results) => {
+                    if (err)  { cb(err); return; }
+                });
+            });
+        }
     }
     catch (err) {
         cb(err);
