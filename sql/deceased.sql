@@ -9,5 +9,6 @@ CREATE TABLE deceased (
 	notDeadYet DATETIME,
 	notDeadFrequencyId INT NOT NULL FOREIGN KEY REFERENCES notDeadFrequency(notDeadFrequencyId),
 	email VARCHAR(255) DEFAULT '',
-	phone VARCHAR(50) DEFAULT ''
+	phone VARCHAR(50) DEFAULT '',
+	LastLoginDate DATETIME
 );
