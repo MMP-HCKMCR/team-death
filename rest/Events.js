@@ -52,7 +52,7 @@
        sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`'UPDATE Event SET EventDate = '${msDate}', EventTypeId = ${type}, RecipientId = ${recipientId}, DeceasedId = ${deceasedId}, AnnualRepeat = ${repeat}, messageText = ${messageString}, SMS = ${sms}, email = ${email}, twitter = ${twitter} WHERE EventId = ${id}`, (err, results) => {
+            req.query(`UPDATE Event SET EventDate = '${msDate}', EventTypeId = ${type}, RecipientId = ${recipientId}, DeceasedId = ${deceasedId}, AnnualRepeat = ${repeat}, messageText = ${messageString}, SMS = ${sms}, email = ${email}, twitter = ${twitter} WHERE EventId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             });
