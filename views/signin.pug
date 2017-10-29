@@ -9,12 +9,12 @@ html
 			.col-md-4
 				h2.text-center Sign in
 				hr
-				form(method='' action='').form-horizontal.signin-form
+				form(role='form' data-toggle="validator").form-horizontal.signin-form
 					fieldset
 						.form-group
 							label.control-label(for="inputEmail") Email
 							br
-							input#inputEmail.form-control(type="text", placeholder="Email")
+							input#inputEmail.form-control(type="text", placeholder="Email" required)
 						.form-group
 							label.control-label(for="inputPassword") Password
 							br
@@ -25,7 +25,7 @@ html
 			.col-md-7.col-md-offset-1
 				h2.text-center Register
 				hr
-				form.form-horizontal.col-md-10.col-md-offset-1
+				form(data-toggle="validator").form-horizontal.col-md-10.col-md-offset-1
 					fieldset
 						.form-group
 							label.control-label(for="inputEmail") Email

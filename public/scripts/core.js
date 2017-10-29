@@ -22,7 +22,8 @@ var cookiestring=RegExp(""+cookiename+"[^;]+").exec(document.cookie);
 return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
 }
 
-function setCookie(cookiename, val)
+function setCookie(cookiename, val, redirectURL="")
 {
-    document.cookie = cookiename + "=" + val + "; path=/";
+    document.cookie = cookiename + "=" + val + ";";
+    console.log(val)
 }
