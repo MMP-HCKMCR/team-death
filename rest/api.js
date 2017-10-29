@@ -59,7 +59,7 @@ module.exports = function() {
         }, req.params.id);
     });
 
-    router.get('/deceased/:id/recipeints', function (req, res) {
+    router.get('/deceased/:id/recipients', function (req, res) {
         recipients.getRecipientsForDeceased((e, r) => {
             res.json ( {error: e, set:r});
         }, req.params.id)
