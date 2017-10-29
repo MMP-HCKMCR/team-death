@@ -51,7 +51,7 @@
          sqlConn.getSqlRequest((err, req) => {
              if (err) { cb(err); return; }
 
-             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, DeceasedId, DateOfBirth, MeetupEnabled, sex) VALUES ('${FirstName}', '${LastName}', '${RecipientNickName}', '${SenderNickName}', '${Phone}', '${eMail}', '${Twitter}', ${deceasedId}, ${dob}, ${meetup}, ${sex})`, (err, results) => {
+             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, DeceasedId, DateOfBirth, MeetupEnabled, sex) VALUES ('${FirstName}', '${LastName}', '${RecipientNickName}', '${SenderNickName}', '${Phone}', '${eMail}', '${Twitter}', ${deceasedId}, '${dob}', ${meetup}, '${sex}')`, (err, results) => {
                  if (err) { cb(err); return; }
                  cb(null, results);
              })
