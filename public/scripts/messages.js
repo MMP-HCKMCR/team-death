@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var userId = 0;
     var recipientId = 0;
+    var eventId = -1;
     getUsers();
 
     function getUsers() {
@@ -150,10 +151,12 @@ $(document).ready(function() {
                 if(data["set"]["rowsAffected"] == 1)
                 {      
                     getMessages();
-                    $("#addRecipForm").trigger('reset'); 
+                    $("#addMessageForm").trigger('reset'); 
+                    eventId = -1;
                 }                  
                 else
                 {
+                    $("#addMessageForm").trigger('reset');                     
                     console.log("ERROR INCORRECTVALUES")               
                 }             
             }, 
