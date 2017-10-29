@@ -166,5 +166,6 @@ module.exports = function() {
     // router.post('/sensitive_data/receive', function(req, res) {
     //     encryption.decryptAndSend(req.body.message, req.body.seed);
     // });
+
     return router;
 }
