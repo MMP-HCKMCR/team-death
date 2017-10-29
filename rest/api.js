@@ -109,7 +109,7 @@ module.exports = function() {
         }, req.params.id);
     });
 
-    router.get('/events/:id', function(res, req) {
+    router.get('/events/:id', function(req, res) {
         events.getEvent((e, r) => {
             res.json( { error: e, set: r});
         }, req.params.id);
