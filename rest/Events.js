@@ -14,7 +14,7 @@
 
  var sqlConn = require('./SqlConn');
  var sqlDate = require('./msDate');
-
+ var messages = require('./Messages');
 
  exports.getEvent = function(cb, id) {
     try {
@@ -31,13 +31,12 @@
     }
  }
 
- exports.postEvent = function (cb, date, type, recipientId, deceasedId, repeat, messageId, sms, email, twitter) {
+ exports.postEvent = function (cb, date, type, recipientId, deceasedId, repeat, messageString, sms, email, twitter) {
      try {
          let msDate = sqlDate.parseDate(date);
         sqlConn.getSqlRequest((err, req) => {
              if (err) { cb(err); return; }
-
-             req.query(`INSERT INTO Event (EventDate, EventTypeId, RecipientId, DeceasedId, AnnualRepeat, MessageId, SMS, email, twitter) VALUES ('${msDate}', ${type}, ${recipientId}, ${deceasedId}, ${repeat}, ${messageId}, ${sms}, ${email}, ${twitter})`, (err, results) => {
+             req.query(`INSERT INTO Event (eventDate, eventTypeId, recipientId, deceasedId, annualRepeat, messageId, messageText, SMS, email, twitter) VALUES ('${msDate}', ${type}, ${recipientId}, ${deceasedId}, ${repeat}, 1, '${messageString}', ${sms}, ${email}, ${twitter})`, (err, results) => {
                  if (err) { cb(err); return; }
                  cb(null, results);
              });
@@ -47,13 +46,13 @@
      }
  }
 
- exports.patchEvent = function (cb, id, date, type, recipientId, deceasedId, repeat, messageId, sms, email, twitter) {
+ exports.patchEvent = function (cb, id, date, type, recipientId, deceasedId, repeat, messageString, sms, email, twitter) {
     try {
         let msDate = sqlDate.parseDate(date);
        sqlConn.getSqlRequest((err, req) => {
             if (err) { cb(err); return; }
 
-            req.query(`'UPDATE Event SET EventDate = '${msDate}', EventTypeId = ${type}, RecipientId = ${recipientId}, DeceasedId = ${deceasedId}, AnnualRepeat = ${repeat}, MessageId = ${messageId}, SMS = ${sms}, email = ${email}, twitter = ${twitter} WHERE EventId = ${id}`, (err, results) => {
+            req.query(`'UPDATE Event SET EventDate = '${msDate}', EventTypeId = ${type}, RecipientId = ${recipientId}, DeceasedId = ${deceasedId}, AnnualRepeat = ${repeat}, messageText = ${messageString}, SMS = ${sms}, email = ${email}, twitter = ${twitter} WHERE EventId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             });

@@ -23,10 +23,15 @@ exports.getMessagesForRecipient = function(cb, id) {
 
 exports.postMessage = function(cb, message) {
     try {
+        console.log('hello');
         sqlConn.getSqlRequest((err, req) => {
+            console.log('cheese');
+            console.log(err);
             if (err) { cb(err); return ; }
-
-            req.query(`INSERT INTO Message SET messageText = ${message}`, (err, results) => {
+            console.log('posting message');
+            req.query(`INSERT INTO Message (messageText) OUTPUT inserted.messageId VALUES (${message})`, (err, results) => {
+                console.log(err);
+                console.log(results);
                 if (err) { cb(err); return; }
                 cb(null, results);
             })
