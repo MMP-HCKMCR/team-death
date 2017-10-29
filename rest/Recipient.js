@@ -46,12 +46,12 @@
     }
  }
 
- exports.postRecipient = function(cb, FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, deceasedId) {
+ exports.postRecipient = function(cb, FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, deceasedId, dob, meetup, sex) {
      try {
          sqlConn.getSqlRequest((err, req) => {
              if (err) { cb(err); return; }
 
-             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, DeceasedId) VALUES ('${FirstName}', '${LastName}', '${RecipientNickName}', '${SenderNickName}', '${Phone}', '${eMail}', '${Twitter}', ${deceasedId})`, (err, results) => {
+             req.query(`INSERT INTO Recipient (FirstName, LastName, RecipientNickName, SenderNickName, Phone, eMail, Twitter, DeceasedId, DateOfBirth, MeetupEnabled, sex) VALUES ('${FirstName}', '${LastName}', '${RecipientNickName}', '${SenderNickName}', '${Phone}', '${eMail}', '${Twitter}', ${deceasedId}, ${dob}, ${meetup}, ${sex})`, (err, results) => {
                  if (err) { cb(err); return; }
                  cb(null, results);
              })
@@ -68,6 +68,22 @@
             if (err) { cb(err); return; }
 
             req.query(`UPDATE Recipient SET LastUpdated = '${date}' FirstName = '${FirstName}', LastName = '${LastName}', RecipientNickName = '${RecipientNickName}', SenderNickName = ${SenderNickName}, Phone = '${Phone}', eMail = '${eMail}', Twitter = '${Twitter}' WHERE RecipientId = ${id}`, (err, results) => {
+                if (err) { cb(err); return; }
+                cb(null, results);
+            })
+        })
+    } catch(err) {
+        cb(err);
+    }
+}
+
+exports.patchRecipientMeetup = function(cb, id, meetup) {
+    try {
+        var date = sqlDate.getDate();
+        sqlConn.getSqlRequest((err, req) => {
+            if (err) { cb(err); return; }
+
+            req.query(`UPDATE Recipient SET MeetupEnabled = ${meetup} WHERE recipientId = ${id}`, (err, results) => {
                 if (err) { cb(err); return; }
                 cb(null, results);
             })

@@ -39,6 +39,20 @@ html
 										br
 										input#inputLastName.form-control(type="text", placeholder="Last Name")
 									.form-group
+										label.control-label(for="selectorSex") Sex
+										br
+										select#selectorSex.form-control(type="select")
+											option(value="M") Male
+											option(value="F") Female
+									.form-group
+										label.control-label(for="inputDoB") Date of Birth
+										br
+										input#inputDoB.form-control(type="date")
+									.form-group
+										label.control-label(for="checkMeetup") Meet new people: 
+										.checkbox
+											input#checkMeetup(type="checkbox")
+									.form-group
 										label.control-label(for="inputRNN") Your Nickname for them
 										br
 										input#inputLastName.form-control(type="text", placeholder="Name")

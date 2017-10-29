@@ -74,13 +74,19 @@ module.exports = function() {
     router.post('/recipients', function (req, res) {
         recipients.postRecipient((e,r) => {
             res.json ( {error: e, set: r});
-        }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.senderNickName, req.body.phone, req.body.email, req.body.twitter, req.body.deceasedId);
+        }, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.senderNickName, req.body.phone, req.body.email, req.body.twitter, req.body.deceasedId, req.body.dateOfBirth, req.body.meetupEnabled, req.body.sex);
     });
 
     router.patch('/recipients/:id', function (req, res) {
         recipients.patchRecipient((e,r) => {
             res.json ( {error: e, set: r});
         }, req.params.id, req.body.firstName, req.body.lastName, req.body.recipientNickName, req.body.senderNickName, req.body.phone, req.body.email, req.body.twitter);
+    });
+
+    router.patch('/recipients/:id/meetup', function (req, res) {
+        recipients.patchRecipientMeetup((e,r) => {
+            res.json ( {error: e, set: r});
+        }, req.params.id, req.body.meetupEnabled);
     });
 
     router.delete('/recipients/:id', function (req, res) {

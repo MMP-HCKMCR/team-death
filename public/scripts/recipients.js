@@ -68,9 +68,10 @@ $(document).ready(function() {
                 recipientNickName: $('#inputEmailReg').val(),                
                 senderNickName: $('#inputEmailReg').val(),                                
                 phone: $('#inputNumber').val(),
-                twitter: $('#inputTwitter').val()
-                
-                
+                twitter: $('#inputTwitter').val(),
+                sex: $('#selectorSex').val(),
+                dateOfBirth: $('#inputDoB').val(),
+                meetupEnabled: +$('#checkMeetup').is(':checked')
             },
             success: function(data)
             {

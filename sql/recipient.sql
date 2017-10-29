@@ -9,5 +9,8 @@ CREATE TABLE recipient (
 	phone VARCHAR(50),
 	email VARCHAR(50),
 	twitter VARCHAR(50),
-	deceasedId INT NOT NULL FOREIGN KEY REFERENCES deceased(deceasedId)
+	deceasedId INT NOT NULL FOREIGN KEY REFERENCES deceased(deceasedId),
+	DateOfBirth DATE,
+	MeetupEnabled BIT,
+	Sex VARCHAR(1)
 );
